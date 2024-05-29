@@ -6,9 +6,10 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.25.0"></script>
 </head>
 <body>
-  <div id="vis"/>
+  <div id="visByDistrict"/>
+  <div id="visByDistrict9School"/>
   <script>
-    const spec = {
+    const byDistrict = {
   "config": {
     "view": {
       "continuousWidth": 400,
@@ -275,7 +276,844 @@
     ]
   }
 };
-    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+    const byDistrict9School = {
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": "white"
+    },
+    "axis": {
+      "grid": false,
+      "labelFontSize": 10,
+      "labelPadding": 15,
+      "orient": "right",
+      "ticks": false,
+      "titlePadding": 15
+    },
+    "legend": {
+      "labelBaseline": "middle",
+      "labelFontSize": 12,
+      "orient": "bottom",
+      "symbolType": "circle",
+      "titleFontSize": 16
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "size": 18,
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "color": {
+          "condition": {
+            "field": "Level",
+            "scale": {
+              "domain": ["Level 1", "Level 2", "Level 3", "Level 4"],
+              "range": ["#1e285f", "#7f9ccf", "#f6af42", "#7abb42"]
+            },
+            "title": null,
+            "type": "nominal",
+            "selection": "selector152"
+          },
+          "value": "lightgray"
+        },
+        "detail": {"field": "Level", "type": "nominal"},
+        "tooltip": [
+          {"field": "District 9 School", "title": "School", "type": "nominal"},
+          {"field": "Level", "title": "Score", "type": "nominal"},
+          {"field": "Value", "title": "%", "type": "nominal"}
+        ],
+        "x": {
+          "aggregate": "sum",
+          "axis": null,
+          "field": "Value",
+          "stack": "normalize",
+          "title": null,
+          "type": "quantitative"
+        },
+        "y": {
+          "axis": {"labelLimit": 600},
+          "field": "District 9 School",
+          "sort": {"field": "filtered", "order": "descending"},
+          "title": null,
+          "type": "nominal"
+        }
+      },
+      "selection": {"selector152": {"type": "multi", "encodings": ["y"]}},
+      "transform": [
+        {
+          "calculate": "datum.Level == 'Level 3' + 'Level 4' ? datum.Value : 0",
+          "as": "filtered"
+        }
+      ],
+      "width": 550
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -3,
+        "dy": 1,
+        "fontSize": 12
+      },
+      "encoding": {
+        "color": {
+          "condition": {"value": "white", "test": "(datum.Level < 'Level 3')"},
+          "value": "black"
+        },
+        "detail": {"field": "Level", "type": "nominal"},
+        "opacity": {
+          "condition": {"value": 0, "test": "datum.Value < 4"},
+          "value": 1
+        },
+        "text": {
+          "aggregate": "sum",
+          "field": "Value",
+          "format": ".1f",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "District 9 School", "title": "School", "type": "nominal"},
+          {"field": "Level", "title": "Score", "type": "nominal"},
+          {"field": "Value", "title": "%", "type": "nominal"}
+        ],
+        "x": {"field": "Value", "stack": "normalize", "type": "quantitative"},
+        "y": {
+          "field": "District 9 School",
+          "sort": {"field": "filtered", "order": "descending"},
+          "type": "nominal"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum.Level == 'Level 3' + 'Level 4' ? datum.Value : 0",
+          "as": "filtered"
+        }
+      ]
+    }
+  ],
+  "data": {"name": "data-de6c3cd43a55624f5c14fc4e6b923a87"},
+  "height": 600,
+  "title": {
+    "text": "2023 NYC District 9 ELA Scores by % Level Achieved",
+    "align": "left",
+    "anchor": "start",
+    "offset": 10,
+    "orient": "top",
+    "subtitle": [
+      "Figure represents third grade scores on the 2023 NYS ELA assessment by District 9 school.Students performing",
+      "at Level 3 or higher are considered proficient in standards for their grade. Source: DOE."
+    ]
+  },
+  "width": 900,
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json",
+  "datasets": {
+    "data-de6c3cd43a55624f5c14fc4e6b923a87": [
+      {
+        "School Code": "09X555",
+        "District 9 School": "MOUNT EDEN CHILDREN'S ACADEMY",
+        "Level": "Level 1",
+        "Value": 17.9
+      },
+      {
+        "School Code": "09X199",
+        "District 9 School": "P.S. 199X - THE SHAKESPEARE SCHOOL",
+        "Level": "Level 1",
+        "Value": 24.5
+      },
+      {
+        "School Code": "09X443",
+        "District 9 School": "THE FAMILY SCHOOL",
+        "Level": "Level 1",
+        "Value": 34.1
+      },
+      {
+        "School Code": "09X204",
+        "District 9 School": "P.S. 204 MORRIS HEIGHTS",
+        "Level": "Level 1",
+        "Value": 22.2
+      },
+      {
+        "School Code": "09X311",
+        "District 9 School": "LUCERO ELEMENTARY SCHOOL",
+        "Level": "Level 1",
+        "Value": 32
+      },
+      {
+        "School Code": "09X088",
+        "District 9 School": "P.S. X088 - S. SILVERSTEIN LITTLE SPARROW SCHOOL",
+        "Level": "Level 1",
+        "Value": 29.4
+      },
+      {
+        "School Code": "09X028",
+        "District 9 School": "P.S. 028 MOUNT HOPE",
+        "Level": "Level 1",
+        "Value": 36.4
+      },
+      {
+        "School Code": "09X449",
+        "District 9 School": "GRANT AVENUE ELEMENTARY SCHOOL",
+        "Level": "Level 1",
+        "Value": 45.5
+      },
+      {
+        "School Code": "09X294",
+        "District 9 School": "THE WALTON AVENUE SCHOOL",
+        "Level": "Level 1",
+        "Value": 30.5
+      },
+      {
+        "School Code": "09X236",
+        "District 9 School": "P.S. 236 LANGSTON HUGHES",
+        "Level": "Level 1",
+        "Value": 40.5
+      },
+      {
+        "School Code": "09X011",
+        "District 9 School": "P.S. 011 HIGHBRIDGE",
+        "Level": "Level 1",
+        "Value": 53.1
+      },
+      {
+        "School Code": "09X126",
+        "District 9 School": "P.S. 126 DR MARJORIE H DUNBAR",
+        "Level": "Level 1",
+        "Value": 45.6
+      },
+      {
+        "School Code": "09X053",
+        "District 9 School": "P.S. 053 BASHEER QUISIM",
+        "Level": "Level 1",
+        "Value": 43.9
+      },
+      {
+        "School Code": "09X063",
+        "District 9 School": "P.S. 063 AUTHOR'S ACADEMY",
+        "Level": "Level 1",
+        "Value": 42.9
+      },
+      {
+        "School Code": "09X163",
+        "District 9 School": "P.S. 163 ARTHUR A. SCHOMBURG",
+        "Level": "Level 1",
+        "Value": 48.8
+      },
+      {
+        "School Code": "09X109",
+        "District 9 School": "P.S. 109 SEDGWICK",
+        "Level": "Level 1",
+        "Value": 46.3
+      },
+      {
+        "School Code": "09X004",
+        "District 9 School": "P.S./M.S. 004 CROTONA PARK WEST",
+        "Level": "Level 1",
+        "Value": 36
+      },
+      {
+        "School Code": "09X035",
+        "District 9 School": "P.S. 035 FRANZ SIEGEL",
+        "Level": "Level 1",
+        "Value": 50
+      },
+      {
+        "School Code": "09X058",
+        "District 9 School": "P.S. 058",
+        "Level": "Level 1",
+        "Value": 46.3
+      },
+      {
+        "School Code": "09X042",
+        "District 9 School": "P.S. 042 CLAREMONT",
+        "Level": "Level 1",
+        "Value": 38.6
+      },
+      {
+        "School Code": "09X132",
+        "District 9 School": "P.S. 132 GARRET A. MORGAN",
+        "Level": "Level 1",
+        "Value": 46.7
+      },
+      {
+        "School Code": "09X110",
+        "District 9 School": "P.S. 110 THEODORE SCHOENFELD",
+        "Level": "Level 1",
+        "Value": 54.3
+      },
+      {
+        "School Code": "09X218",
+        "District 9 School": "P.S./I.S. 218 RAFAEL HERNANDEZ DUAL LANGUAGE MAGNE",
+        "Level": "Level 1",
+        "Value": 47
+      },
+      {
+        "School Code": "09X073",
+        "District 9 School": "P.S. 073 BRONX",
+        "Level": "Level 1",
+        "Value": 56.3
+      },
+      {
+        "School Code": "09X274",
+        "District 9 School": "THE NEW AMERICAN ACADEMY AT ROBERTO CLEMENTE STATE",
+        "Level": "Level 1",
+        "Value": 61
+      },
+      {
+        "School Code": "09X055",
+        "District 9 School": "P.S. 055 BENJAMIN FRANKLIN",
+        "Level": "Level 1",
+        "Value": 60
+      },
+      {
+        "School Code": "09X457",
+        "District 9 School": "SHERIDAN ACADEMY FOR YOUNG LEADERS",
+        "Level": "Level 1",
+        "Value": 71.7
+      },
+      {
+        "School Code": "09X114",
+        "District 9 School": "P.S. X114 - LUIS LLORENS TORRES SCHOOLS",
+        "Level": "Level 1",
+        "Value": 61
+      },
+      {
+        "School Code": "09X070",
+        "District 9 School": "P.S. 070 MAX SCHOENFELD",
+        "Level": "Level 1",
+        "Value": 69.6
+      },
+      {
+        "School Code": "09X555",
+        "District 9 School": "MOUNT EDEN CHILDREN'S ACADEMY",
+        "Level": "Level 2",
+        "Value": 30.4
+      },
+      {
+        "School Code": "09X199",
+        "District 9 School": "P.S. 199X - THE SHAKESPEARE SCHOOL",
+        "Level": "Level 2",
+        "Value": 28.6
+      },
+      {
+        "School Code": "09X443",
+        "District 9 School": "THE FAMILY SCHOOL",
+        "Level": "Level 2",
+        "Value": 24.4
+      },
+      {
+        "School Code": "09X204",
+        "District 9 School": "P.S. 204 MORRIS HEIGHTS",
+        "Level": "Level 2",
+        "Value": 37.8
+      },
+      {
+        "School Code": "09X311",
+        "District 9 School": "LUCERO ELEMENTARY SCHOOL",
+        "Level": "Level 2",
+        "Value": 32
+      },
+      {
+        "School Code": "09X088",
+        "District 9 School": "P.S. X088 - S. SILVERSTEIN LITTLE SPARROW SCHOOL",
+        "Level": "Level 2",
+        "Value": 35.3
+      },
+      {
+        "School Code": "09X028",
+        "District 9 School": "P.S. 028 MOUNT HOPE",
+        "Level": "Level 2",
+        "Value": 29.1
+      },
+      {
+        "School Code": "09X449",
+        "District 9 School": "GRANT AVENUE ELEMENTARY SCHOOL",
+        "Level": "Level 2",
+        "Value": 20.5
+      },
+      {
+        "School Code": "09X294",
+        "District 9 School": "THE WALTON AVENUE SCHOOL",
+        "Level": "Level 2",
+        "Value": 35.6
+      },
+      {
+        "School Code": "09X236",
+        "District 9 School": "P.S. 236 LANGSTON HUGHES",
+        "Level": "Level 2",
+        "Value": 31
+      },
+      {
+        "School Code": "09X011",
+        "District 9 School": "P.S. 011 HIGHBRIDGE",
+        "Level": "Level 2",
+        "Value": 20.4
+      },
+      {
+        "School Code": "09X126",
+        "District 9 School": "P.S. 126 DR MARJORIE H DUNBAR",
+        "Level": "Level 2",
+        "Value": 28.1
+      },
+      {
+        "School Code": "09X053",
+        "District 9 School": "P.S. 053 BASHEER QUISIM",
+        "Level": "Level 2",
+        "Value": 30.5
+      },
+      {
+        "School Code": "09X063",
+        "District 9 School": "P.S. 063 AUTHOR'S ACADEMY",
+        "Level": "Level 2",
+        "Value": 32.1
+      },
+      {
+        "School Code": "09X163",
+        "District 9 School": "P.S. 163 ARTHUR A. SCHOMBURG",
+        "Level": "Level 2",
+        "Value": 26.8
+      },
+      {
+        "School Code": "09X109",
+        "District 9 School": "P.S. 109 SEDGWICK",
+        "Level": "Level 2",
+        "Value": 29.3
+      },
+      {
+        "School Code": "09X004",
+        "District 9 School": "P.S./M.S. 004 CROTONA PARK WEST",
+        "Level": "Level 2",
+        "Value": 40
+      },
+      {
+        "School Code": "09X035",
+        "District 9 School": "P.S. 035 FRANZ SIEGEL",
+        "Level": "Level 2",
+        "Value": 26
+      },
+      {
+        "School Code": "09X058",
+        "District 9 School": "P.S. 058",
+        "Level": "Level 2",
+        "Value": 31.7
+      },
+      {
+        "School Code": "09X042",
+        "District 9 School": "P.S. 042 CLAREMONT",
+        "Level": "Level 2",
+        "Value": 43.2
+      },
+      {
+        "School Code": "09X132",
+        "District 9 School": "P.S. 132 GARRET A. MORGAN",
+        "Level": "Level 2",
+        "Value": 35.6
+      },
+      {
+        "School Code": "09X110",
+        "District 9 School": "P.S. 110 THEODORE SCHOENFELD",
+        "Level": "Level 2",
+        "Value": 28.3
+      },
+      {
+        "School Code": "09X218",
+        "District 9 School": "P.S./I.S. 218 RAFAEL HERNANDEZ DUAL LANGUAGE MAGNE",
+        "Level": "Level 2",
+        "Value": 36.1
+      },
+      {
+        "School Code": "09X073",
+        "District 9 School": "P.S. 073 BRONX",
+        "Level": "Level 2",
+        "Value": 28.1
+      },
+      {
+        "School Code": "09X274",
+        "District 9 School": "THE NEW AMERICAN ACADEMY AT ROBERTO CLEMENTE STATE",
+        "Level": "Level 2",
+        "Value": 23.7
+      },
+      {
+        "School Code": "09X055",
+        "District 9 School": "P.S. 055 BENJAMIN FRANKLIN",
+        "Level": "Level 2",
+        "Value": 25
+      },
+      {
+        "School Code": "09X457",
+        "District 9 School": "SHERIDAN ACADEMY FOR YOUNG LEADERS",
+        "Level": "Level 2",
+        "Value": 15.1
+      },
+      {
+        "School Code": "09X114",
+        "District 9 School": "P.S. X114 - LUIS LLORENS TORRES SCHOOLS",
+        "Level": "Level 2",
+        "Value": 27.1
+      },
+      {
+        "School Code": "09X070",
+        "District 9 School": "P.S. 070 MAX SCHOENFELD",
+        "Level": "Level 2",
+        "Value": 19.1
+      },
+      {
+        "School Code": "09X555",
+        "District 9 School": "MOUNT EDEN CHILDREN'S ACADEMY",
+        "Level": "Level 3",
+        "Value": 32.1
+      },
+      {
+        "School Code": "09X199",
+        "District 9 School": "P.S. 199X - THE SHAKESPEARE SCHOOL",
+        "Level": "Level 3",
+        "Value": 26.5
+      },
+      {
+        "School Code": "09X443",
+        "District 9 School": "THE FAMILY SCHOOL",
+        "Level": "Level 3",
+        "Value": 29.3
+      },
+      {
+        "School Code": "09X204",
+        "District 9 School": "P.S. 204 MORRIS HEIGHTS",
+        "Level": "Level 3",
+        "Value": 24.4
+      },
+      {
+        "School Code": "09X311",
+        "District 9 School": "LUCERO ELEMENTARY SCHOOL",
+        "Level": "Level 3",
+        "Value": 28
+      },
+      {
+        "School Code": "09X088",
+        "District 9 School": "P.S. X088 - S. SILVERSTEIN LITTLE SPARROW SCHOOL",
+        "Level": "Level 3",
+        "Value": 23.5
+      },
+      {
+        "School Code": "09X028",
+        "District 9 School": "P.S. 028 MOUNT HOPE",
+        "Level": "Level 3",
+        "Value": 23.6
+      },
+      {
+        "School Code": "09X449",
+        "District 9 School": "GRANT AVENUE ELEMENTARY SCHOOL",
+        "Level": "Level 3",
+        "Value": 18.2
+      },
+      {
+        "School Code": "09X294",
+        "District 9 School": "THE WALTON AVENUE SCHOOL",
+        "Level": "Level 3",
+        "Value": 23.7
+      },
+      {
+        "School Code": "09X236",
+        "District 9 School": "P.S. 236 LANGSTON HUGHES",
+        "Level": "Level 3",
+        "Value": 21.4
+      },
+      {
+        "School Code": "09X011",
+        "District 9 School": "P.S. 011 HIGHBRIDGE",
+        "Level": "Level 3",
+        "Value": 20.4
+      },
+      {
+        "School Code": "09X126",
+        "District 9 School": "P.S. 126 DR MARJORIE H DUNBAR",
+        "Level": "Level 3",
+        "Value": 19.3
+      },
+      {
+        "School Code": "09X053",
+        "District 9 School": "P.S. 053 BASHEER QUISIM",
+        "Level": "Level 3",
+        "Value": 22
+      },
+      {
+        "School Code": "09X063",
+        "District 9 School": "P.S. 063 AUTHOR'S ACADEMY",
+        "Level": "Level 3",
+        "Value": 21.4
+      },
+      {
+        "School Code": "09X163",
+        "District 9 School": "P.S. 163 ARTHUR A. SCHOMBURG",
+        "Level": "Level 3",
+        "Value": 17.1
+      },
+      {
+        "School Code": "09X109",
+        "District 9 School": "P.S. 109 SEDGWICK",
+        "Level": "Level 3",
+        "Value": 19.5
+      },
+      {
+        "School Code": "09X004",
+        "District 9 School": "P.S./M.S. 004 CROTONA PARK WEST",
+        "Level": "Level 3",
+        "Value": 16
+      },
+      {
+        "School Code": "09X035",
+        "District 9 School": "P.S. 035 FRANZ SIEGEL",
+        "Level": "Level 3",
+        "Value": 16
+      },
+      {
+        "School Code": "09X058",
+        "District 9 School": "P.S. 058",
+        "Level": "Level 3",
+        "Value": 14.6
+      },
+      {
+        "School Code": "09X042",
+        "District 9 School": "P.S. 042 CLAREMONT",
+        "Level": "Level 3",
+        "Value": 9.1
+      },
+      {
+        "School Code": "09X132",
+        "District 9 School": "P.S. 132 GARRET A. MORGAN",
+        "Level": "Level 3",
+        "Value": 17.8
+      },
+      {
+        "School Code": "09X110",
+        "District 9 School": "P.S. 110 THEODORE SCHOENFELD",
+        "Level": "Level 3",
+        "Value": 13
+      },
+      {
+        "School Code": "09X218",
+        "District 9 School": "P.S./I.S. 218 RAFAEL HERNANDEZ DUAL LANGUAGE MAGNE",
+        "Level": "Level 3",
+        "Value": 15.7
+      },
+      {
+        "School Code": "09X073",
+        "District 9 School": "P.S. 073 BRONX",
+        "Level": "Level 3",
+        "Value": 12.5
+      },
+      {
+        "School Code": "09X274",
+        "District 9 School": "THE NEW AMERICAN ACADEMY AT ROBERTO CLEMENTE STATE",
+        "Level": "Level 3",
+        "Value": 10.2
+      },
+      {
+        "School Code": "09X055",
+        "District 9 School": "P.S. 055 BENJAMIN FRANKLIN",
+        "Level": "Level 3",
+        "Value": 15
+      },
+      {
+        "School Code": "09X457",
+        "District 9 School": "SHERIDAN ACADEMY FOR YOUNG LEADERS",
+        "Level": "Level 3",
+        "Value": 7.5
+      },
+      {
+        "School Code": "09X114",
+        "District 9 School": "P.S. X114 - LUIS LLORENS TORRES SCHOOLS",
+        "Level": "Level 3",
+        "Value": 8.5
+      },
+      {
+        "School Code": "09X070",
+        "District 9 School": "P.S. 070 MAX SCHOENFELD",
+        "Level": "Level 3",
+        "Value": 9.6
+      },
+      {
+        "School Code": "09X555",
+        "District 9 School": "MOUNT EDEN CHILDREN'S ACADEMY",
+        "Level": "Level 4",
+        "Value": 19.6
+      },
+      {
+        "School Code": "09X199",
+        "District 9 School": "P.S. 199X - THE SHAKESPEARE SCHOOL",
+        "Level": "Level 4",
+        "Value": 20.4
+      },
+      {
+        "School Code": "09X443",
+        "District 9 School": "THE FAMILY SCHOOL",
+        "Level": "Level 4",
+        "Value": 12.2
+      },
+      {
+        "School Code": "09X204",
+        "District 9 School": "P.S. 204 MORRIS HEIGHTS",
+        "Level": "Level 4",
+        "Value": 15.6
+      },
+      {
+        "School Code": "09X311",
+        "District 9 School": "LUCERO ELEMENTARY SCHOOL",
+        "Level": "Level 4",
+        "Value": 8
+      },
+      {
+        "School Code": "09X088",
+        "District 9 School": "P.S. X088 - S. SILVERSTEIN LITTLE SPARROW SCHOOL",
+        "Level": "Level 4",
+        "Value": 11.8
+      },
+      {
+        "School Code": "09X028",
+        "District 9 School": "P.S. 028 MOUNT HOPE",
+        "Level": "Level 4",
+        "Value": 10.9
+      },
+      {
+        "School Code": "09X449",
+        "District 9 School": "GRANT AVENUE ELEMENTARY SCHOOL",
+        "Level": "Level 4",
+        "Value": 15.9
+      },
+      {
+        "School Code": "09X294",
+        "District 9 School": "THE WALTON AVENUE SCHOOL",
+        "Level": "Level 4",
+        "Value": 10.2
+      },
+      {
+        "School Code": "09X236",
+        "District 9 School": "P.S. 236 LANGSTON HUGHES",
+        "Level": "Level 4",
+        "Value": 7.1
+      },
+      {
+        "School Code": "09X011",
+        "District 9 School": "P.S. 011 HIGHBRIDGE",
+        "Level": "Level 4",
+        "Value": 6.1
+      },
+      {
+        "School Code": "09X126",
+        "District 9 School": "P.S. 126 DR MARJORIE H DUNBAR",
+        "Level": "Level 4",
+        "Value": 7
+      },
+      {
+        "School Code": "09X053",
+        "District 9 School": "P.S. 053 BASHEER QUISIM",
+        "Level": "Level 4",
+        "Value": 3.7
+      },
+      {
+        "School Code": "09X063",
+        "District 9 School": "P.S. 063 AUTHOR'S ACADEMY",
+        "Level": "Level 4",
+        "Value": 3.6
+      },
+      {
+        "School Code": "09X163",
+        "District 9 School": "P.S. 163 ARTHUR A. SCHOMBURG",
+        "Level": "Level 4",
+        "Value": 7.3
+      },
+      {
+        "School Code": "09X109",
+        "District 9 School": "P.S. 109 SEDGWICK",
+        "Level": "Level 4",
+        "Value": 4.9
+      },
+      {
+        "School Code": "09X004",
+        "District 9 School": "P.S./M.S. 004 CROTONA PARK WEST",
+        "Level": "Level 4",
+        "Value": 8
+      },
+      {
+        "School Code": "09X035",
+        "District 9 School": "P.S. 035 FRANZ SIEGEL",
+        "Level": "Level 4",
+        "Value": 8
+      },
+      {
+        "School Code": "09X058",
+        "District 9 School": "P.S. 058",
+        "Level": "Level 4",
+        "Value": 7.3
+      },
+      {
+        "School Code": "09X042",
+        "District 9 School": "P.S. 042 CLAREMONT",
+        "Level": "Level 4",
+        "Value": 9.1
+      },
+      {
+        "School Code": "09X132",
+        "District 9 School": "P.S. 132 GARRET A. MORGAN",
+        "Level": "Level 4",
+        "Value": 0
+      },
+      {
+        "School Code": "09X110",
+        "District 9 School": "P.S. 110 THEODORE SCHOENFELD",
+        "Level": "Level 4",
+        "Value": 4.3
+      },
+      {
+        "School Code": "09X218",
+        "District 9 School": "P.S./I.S. 218 RAFAEL HERNANDEZ DUAL LANGUAGE MAGNE",
+        "Level": "Level 4",
+        "Value": 1.2
+      },
+      {
+        "School Code": "09X073",
+        "District 9 School": "P.S. 073 BRONX",
+        "Level": "Level 4",
+        "Value": 3.1
+      },
+      {
+        "School Code": "09X274",
+        "District 9 School": "THE NEW AMERICAN ACADEMY AT ROBERTO CLEMENTE STATE",
+        "Level": "Level 4",
+        "Value": 5.1
+      },
+      {
+        "School Code": "09X055",
+        "District 9 School": "P.S. 055 BENJAMIN FRANKLIN",
+        "Level": "Level 4",
+        "Value": 0
+      },
+      {
+        "School Code": "09X457",
+        "District 9 School": "SHERIDAN ACADEMY FOR YOUNG LEADERS",
+        "Level": "Level 4",
+        "Value": 5.7
+      },
+      {
+        "School Code": "09X114",
+        "District 9 School": "P.S. X114 - LUIS LLORENS TORRES SCHOOLS",
+        "Level": "Level 4",
+        "Value": 3.4
+      },
+      {
+        "School Code": "09X070",
+        "District 9 School": "P.S. 070 MAX SCHOENFELD",
+        "Level": "Level 4",
+        "Value": 1.7
+      }
+    ]
+  }
+};
+    vegaEmbed("#visByDistrict", byDistrict, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+    vegaEmbed("#visByDistrict9School", byDistrict9School, {mode: "vega-lite"}).then(console.log).catch(console.warn);
   </script>
 </body>
 </html>
