@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.29.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.18.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.25.0"></script>
+</head>
+<body>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": "white"
+    },
+    "axis": {
+      "grid": false,
+      "labelFontSize": 14,
+      "labelFontWeight": "bold",
+      "labelPadding": 15,
+      "ticks": false,
+      "titlePadding": 15
+    },
+    "legend": {
+      "labelBaseline": "middle",
+      "labelFontSize": 12,
+      "orient": "bottom",
+      "symbolType": "circle",
+      "titleFontSize": 16
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "size": 16,
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "color": {
+          "condition": {
+            "field": "Level",
+            "scale": {
+              "domain": ["Level 1", "Level 2", "Level 3", "Level 4"],
+              "range": ["#1e285f", "#7f9ccf", "#f6af42", "#7abb42"]
+            },
+            "title": null,
+            "type": "nominal",
+            "selection": "selector154"
+          },
+          "value": "lightgray"
+        },
+        "detail": {"field": "Level", "type": "nominal"},
+        "tooltip": [
+          {"field": "District", "title": "District", "type": "nominal"},
+          {"field": "Level", "title": "Score", "type": "nominal"},
+          {"field": "Value", "title": "%", "type": "nominal"}
+        ],
+        "x": {
+          "aggregate": "sum",
+          "axis": null,
+          "field": "Value",
+          "stack": "normalize",
+          "title": null,
+          "type": "quantitative"
+        },
+        "y": {
+          "axis": {"labelLimit": 600},
+          "field": "District",
+          "sort": {"field": "filtered", "order": "descending"},
+          "title": null,
+          "type": "nominal"
+        }
+      },
+      "selection": {"selector154": {"type": "multi", "encodings": ["y"]}},
+      "transform": [
+        {
+          "calculate": "datum.Level == 'Level 3' + 'Level 4' ? datum.Value : 0",
+          "as": "filtered"
+        }
+      ],
+      "width": 550
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -3,
+        "dy": 1,
+        "fontSize": 12
+      },
+      "encoding": {
+        "color": {
+          "condition": {"value": "white", "test": "(datum.Level < 'Level 3')"},
+          "value": "black"
+        },
+        "detail": {"field": "Level", "type": "nominal"},
+        "opacity": {
+          "condition": {"value": 0, "test": "datum.Value==0"},
+          "value": 1
+        },
+        "text": {
+          "aggregate": "sum",
+          "field": "Value",
+          "format": ".1f",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "District", "title": "District", "type": "nominal"},
+          {"field": "Level", "title": "Score", "type": "nominal"},
+          {"field": "Value", "title": "%", "type": "nominal"}
+        ],
+        "x": {"field": "Value", "stack": "normalize", "type": "quantitative"},
+        "y": {
+          "field": "District",
+          "sort": {"field": "filtered", "order": "descending"},
+          "type": "nominal"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum.Level == 'Level 3' + 'Level 4' ? datum.Value : 0",
+          "as": "filtered"
+        }
+      ]
+    }
+  ],
+  "data": {"name": "data-dc0770af390e8c9bc091856b16988e95"},
+  "height": 600,
+  "title": {
+    "text": "2023 NYC School District ELA Scores by % Level Achieved",
+    "anchor": "start",
+    "offset": 10,
+    "orient": "top",
+    "subtitle": [
+      "Figure represents third grade scores on the 2023 NYS ELA assessment by New York City school district.",
+      "Students performing at Level 3 or higher are considered proficient in standards for their grade. Source: DOE."
+    ]
+  },
+  "width": 900,
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json",
+  "datasets": {
+    "data-dc0770af390e8c9bc091856b16988e95": [
+      {"District": 2, "Level": "Level 1", "Value": 10.4},
+      {"District": 26, "Level": "Level 1", "Value": 12.1},
+      {"District": 3, "Level": "Level 1", "Value": 18.5},
+      {"District": 15, "Level": "Level 1", "Value": 16.2},
+      {"District": 13, "Level": "Level 1", "Value": 20.4},
+      {"District": 25, "Level": "Level 1", "Value": 18.5},
+      {"District": 20, "Level": "Level 1", "Value": 20.8},
+      {"District": 28, "Level": "Level 1", "Value": 21.5},
+      {"District": 31, "Level": "Level 1", "Value": 21},
+      {"District": 1, "Level": "Level 1", "Value": 23.3},
+      {"District": 14, "Level": "Level 1", "Value": 25},
+      {"District": 30, "Level": "Level 1", "Value": 25.1},
+      {"District": 22, "Level": "Level 1", "Value": 26.2},
+      {"District": 29, "Level": "Level 1", "Value": 27},
+      {"District": 21, "Level": "Level 1", "Value": 27.4},
+      {"District": 4, "Level": "Level 1", "Value": 30.7},
+      {"District": 17, "Level": "Level 1", "Value": 30.2},
+      {"District": 16, "Level": "Level 1", "Value": 28.8},
+      {"District": 18, "Level": "Level 1", "Value": 32.8},
+      {"District": 27, "Level": "Level 1", "Value": 29.6},
+      {"District": 23, "Level": "Level 1", "Value": 36.2},
+      {"District": 24, "Level": "Level 1", "Value": 35.1},
+      {"District": 6, "Level": "Level 1", "Value": 37.6},
+      {"District": 19, "Level": "Level 1", "Value": 40.1},
+      {"District": 11, "Level": "Level 1", "Value": 38.4},
+      {"District": 5, "Level": "Level 1", "Value": 40.8},
+      {"District": 10, "Level": "Level 1", "Value": 43.4},
+      {"District": 8, "Level": "Level 1", "Value": 43},
+      {"District": 7, "Level": "Level 1", "Value": 46.3},
+      {"District": 12, "Level": "Level 1", "Value": 47.2},
+      {"District": 32, "Level": "Level 1", "Value": 46.8},
+      {"District": 9, "Level": "Level 1", "Value": 47.2},
+      {"District": 2, "Level": "Level 2", "Value": 14.6},
+      {"District": 26, "Level": "Level 2", "Value": 18},
+      {"District": 3, "Level": "Level 2", "Value": 15.3},
+      {"District": 15, "Level": "Level 2", "Value": 20.7},
+      {"District": 13, "Level": "Level 2", "Value": 19.1},
+      {"District": 25, "Level": "Level 2", "Value": 22.9},
+      {"District": 20, "Level": "Level 2", "Value": 21.4},
+      {"District": 28, "Level": "Level 2", "Value": 20.6},
+      {"District": 31, "Level": "Level 2", "Value": 23},
+      {"District": 1, "Level": "Level 2", "Value": 21.9},
+      {"District": 14, "Level": "Level 2", "Value": 21.5},
+      {"District": 30, "Level": "Level 2", "Value": 23.3},
+      {"District": 22, "Level": "Level 2", "Value": 25.2},
+      {"District": 29, "Level": "Level 2", "Value": 24.5},
+      {"District": 21, "Level": "Level 2", "Value": 26},
+      {"District": 4, "Level": "Level 2", "Value": 24.2},
+      {"District": 17, "Level": "Level 2", "Value": 25},
+      {"District": 16, "Level": "Level 2", "Value": 26.7},
+      {"District": 18, "Level": "Level 2", "Value": 23.3},
+      {"District": 27, "Level": "Level 2", "Value": 27},
+      {"District": 23, "Level": "Level 2", "Value": 21.7},
+      {"District": 24, "Level": "Level 2", "Value": 23.8},
+      {"District": 6, "Level": "Level 2", "Value": 25.5},
+      {"District": 19, "Level": "Level 2", "Value": 23.8},
+      {"District": 11, "Level": "Level 2", "Value": 26.9},
+      {"District": 5, "Level": "Level 2", "Value": 25.5},
+      {"District": 10, "Level": "Level 2", "Value": 24.4},
+      {"District": 8, "Level": "Level 2", "Value": 25.9},
+      {"District": 7, "Level": "Level 2", "Value": 24},
+      {"District": 12, "Level": "Level 2", "Value": 24.2},
+      {"District": 32, "Level": "Level 2", "Value": 25.1},
+      {"District": 9, "Level": "Level 2", "Value": 28.6},
+      {"District": 2, "Level": "Level 3", "Value": 33.5},
+      {"District": 26, "Level": "Level 3", "Value": 34.7},
+      {"District": 3, "Level": "Level 3", "Value": 35.2},
+      {"District": 15, "Level": "Level 3", "Value": 35.6},
+      {"District": 13, "Level": "Level 3", "Value": 32.9},
+      {"District": 25, "Level": "Level 3", "Value": 34.1},
+      {"District": 20, "Level": "Level 3", "Value": 32.8},
+      {"District": 28, "Level": "Level 3", "Value": 31.6},
+      {"District": 31, "Level": "Level 3", "Value": 32.2},
+      {"District": 1, "Level": "Level 3", "Value": 28.1},
+      {"District": 14, "Level": "Level 3", "Value": 32.1},
+      {"District": 30, "Level": "Level 3", "Value": 28.1},
+      {"District": 22, "Level": "Level 3", "Value": 31.5},
+      {"District": 29, "Level": "Level 3", "Value": 33.2},
+      {"District": 21, "Level": "Level 3", "Value": 29},
+      {"District": 4, "Level": "Level 3", "Value": 24.5},
+      {"District": 17, "Level": "Level 3", "Value": 28.2},
+      {"District": 16, "Level": "Level 3", "Value": 28.5},
+      {"District": 18, "Level": "Level 3", "Value": 27.5},
+      {"District": 27, "Level": "Level 3", "Value": 28.1},
+      {"District": 23, "Level": "Level 3", "Value": 26.7},
+      {"District": 24, "Level": "Level 3", "Value": 26.7},
+      {"District": 6, "Level": "Level 3", "Value": 26.6},
+      {"District": 19, "Level": "Level 3", "Value": 22.1},
+      {"District": 11, "Level": "Level 3", "Value": 24.2},
+      {"District": 5, "Level": "Level 3", "Value": 25.1},
+      {"District": 10, "Level": "Level 3", "Value": 21.9},
+      {"District": 8, "Level": "Level 3", "Value": 22.1},
+      {"District": 7, "Level": "Level 3", "Value": 18.9},
+      {"District": 12, "Level": "Level 3", "Value": 19.9},
+      {"District": 32, "Level": "Level 3", "Value": 20.8},
+      {"District": 9, "Level": "Level 3", "Value": 17.2},
+      {"District": 2, "Level": "Level 4", "Value": 41.5},
+      {"District": 26, "Level": "Level 4", "Value": 35.2},
+      {"District": 3, "Level": "Level 4", "Value": 31},
+      {"District": 15, "Level": "Level 4", "Value": 27.5},
+      {"District": 13, "Level": "Level 4", "Value": 27.7},
+      {"District": 25, "Level": "Level 4", "Value": 24.5},
+      {"District": 20, "Level": "Level 4", "Value": 25},
+      {"District": 28, "Level": "Level 4", "Value": 26.2},
+      {"District": 31, "Level": "Level 4", "Value": 23.8},
+      {"District": 1, "Level": "Level 4", "Value": 26.7},
+      {"District": 14, "Level": "Level 4", "Value": 21.4},
+      {"District": 30, "Level": "Level 4", "Value": 23.5},
+      {"District": 22, "Level": "Level 4", "Value": 17.1},
+      {"District": 29, "Level": "Level 4", "Value": 15.4},
+      {"District": 21, "Level": "Level 4", "Value": 17.5},
+      {"District": 4, "Level": "Level 4", "Value": 20.5},
+      {"District": 17, "Level": "Level 4", "Value": 16.6},
+      {"District": 16, "Level": "Level 4", "Value": 16},
+      {"District": 18, "Level": "Level 4", "Value": 16.4},
+      {"District": 27, "Level": "Level 4", "Value": 15.3},
+      {"District": 23, "Level": "Level 4", "Value": 15.4},
+      {"District": 24, "Level": "Level 4", "Value": 14.5},
+      {"District": 6, "Level": "Level 4", "Value": 10.4},
+      {"District": 19, "Level": "Level 4", "Value": 14},
+      {"District": 11, "Level": "Level 4", "Value": 10.5},
+      {"District": 5, "Level": "Level 4", "Value": 8.6},
+      {"District": 10, "Level": "Level 4", "Value": 10.3},
+      {"District": 8, "Level": "Level 4", "Value": 9},
+      {"District": 7, "Level": "Level 4", "Value": 10.8},
+      {"District": 12, "Level": "Level 4", "Value": 8.7},
+      {"District": 32, "Level": "Level 4", "Value": 7.2},
+      {"District": 9, "Level": "Level 4", "Value": 6.9}
+    ]
+  }
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
