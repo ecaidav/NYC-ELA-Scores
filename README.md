@@ -8,4 +8,4 @@ Both of the normalized bar charts are created using Altair and illustrate aggreg
 
 The dataset is obtained via the [NYC OpenData API](https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2013-2023/iebs-5yhr/data) and read in as a csv file using Pandas.
 
-Note that the charts are interactive. Select a bar to isolate exam outcomes for a specific district or school. Double click on the selected bar to return to city or district-wide results. To navigate the figure, hover over the charts for a textbox with a detailed breakdown of the embedded data. 
+Note that the charts are interactive. Select a bar to isolate exam outcomes for a specific district or school. Double click on the selected bar to return to city or district-wide results. To navigate the figure, hover over the charts for a textbox overview of the embedded data. 
